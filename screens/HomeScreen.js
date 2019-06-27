@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {StyleSheet,TextInput,Text,View} from 'react-native';
+import {TouchableOpacity,StyleSheet,TextInput,Text,View} from 'react-native';
 import StocksAPI from '../api/StocksAPI';
 
 export default class HomeScreen extends Component{
@@ -8,7 +8,17 @@ export default class HomeScreen extends Component{
     symbole:'',
   }
   componentWillMount(){
-    //StocksAPI.getDate();
+    /*
+      ~ Need todays date, yesterdays date
+      ~ Maybe get news?
+      ~ Show stock
+        - Name
+        - Price
+        - Change
+        - Update Time
+      ~ Flat list?
+      ~ Time till close or Open
+    */
 
   }
   getDate = () =>{
@@ -23,12 +33,23 @@ export default class HomeScreen extends Component{
     }
     console.log(year, month, day);
   }
-
+  getStockQuote =()=>{
+    StocksAPI.getStocks(this.state.symbole);
+    this.setState({
+      symbole:''
+    });
+  }
   render(){
     return(
       <View style={styles.container}>
-        <TextInput placeholder='Enter Symbole' value={this.state.symbole} onChangeText={(text) =>this.setState({symbole:text})} style={styles.txt}/>
+        <TextInput placeholder='Enter Symbole' value={this.state.symbole} onChangeText={(text) =>this.setState({symbole:text})} style={styles.txt} placeholderTextColor={'white'}/>
+
+        <TouchableOpacity onPress={this.getStockQuote}>
+          <Text style={styles.btnText}>Get Quote</Text>
+        </TouchableOpacity>
+
       </View>
+
     )
   }
 }
@@ -46,6 +67,12 @@ const styles = StyleSheet.create({
   txt:{
     backgroundColor:'gray',
     width:'90%',
-    height:40
+    height:40,
+    paddingLeft:7
+  },
+  btnText:{
+    fontSize:20,
+    marginTop:20,
+    color:'orange'
   }
 })
