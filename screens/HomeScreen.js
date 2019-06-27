@@ -4,11 +4,12 @@ import StocksAPI from '../api/StocksAPI';
 
 export default class HomeScreen extends Component{
   state = {
-    date:new Date()
+    date:new Date(),
+    symbole:'',
   }
   componentWillMount(){
     //StocksAPI.getDate();
-    this.getDate();
+
   }
   getDate = () =>{
     var year = this.state.date.getFullYear();
@@ -22,10 +23,11 @@ export default class HomeScreen extends Component{
     }
     console.log(year, month, day);
   }
+
   render(){
     return(
       <View style={styles.container}>
-        <TextInput placholder='Enter Symbole' />
+        <TextInput placeholder='Enter Symbole' value={this.state.symbole} onChangeText={(text) =>this.setState({symbole:text})} style={styles.txt}/>
       </View>
     )
   }
@@ -39,5 +41,11 @@ const styles = StyleSheet.create({
     flex:1,
     alignItems:'center',
     justifyContent:'center',
+    backgroundColor:'#333'
+  },
+  txt:{
+    backgroundColor:'gray',
+    width:'90%',
+    height:40
   }
 })
