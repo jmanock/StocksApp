@@ -8,6 +8,7 @@ export default class HomeScreen extends Component{
     symbole:'',
   }
   componentWillMount(){
+    this.getDate();
     /*
       ~ Need todays date, yesterdays date
       ~ Maybe get news?
@@ -18,6 +19,7 @@ export default class HomeScreen extends Component{
         - Update Time
       ~ Flat list?
       ~ Time till close or Open
+      ~ Maybe look for companies & symboles?
     */
 
   }
@@ -25,13 +27,14 @@ export default class HomeScreen extends Component{
     var year = this.state.date.getFullYear();
     var month = this.state.date.getMonth() + 1;
     var day = this.state.date.getDate();
+    var yesterday = this.state.date.getDate() -1;
     if(month < 10){
       month = '0'+month;
     }
     if(day < 10){
       day = '0'+day;
     }
-    console.log(year, month, day);
+    console.log(year, month, day, yesterday);
   }
   getStockQuote =()=>{
     StocksAPI.getStocks(this.state.symbole);
