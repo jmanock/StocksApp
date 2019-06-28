@@ -9,7 +9,8 @@ export default class HomeScreen extends Component{
     name:'',
     yesterdayPrice:'',
     todayPrice:'',
-    timeRefreshed:''
+    timeRefreshed:'',
+    close:''
   }
   componentWillMount(){
 
@@ -40,7 +41,7 @@ export default class HomeScreen extends Component{
     }
     StocksAPI.getDate(year,month,day,yesterday);
   }
-  
+
   getStockQuote = () =>{
     StocksAPI.getStocks(this.state.symbole).then(function(data){
       this.setState({
@@ -48,10 +49,12 @@ export default class HomeScreen extends Component{
         todayPrice:data.closePrice,
         yesterdayPrice:data.yesterdayClose,
         name:data.name,
+        change:data.change,
         symbole:''
       });
     }.bind(this))
   }
+
   render(){
     return(
       <View style={styles.container}>
@@ -60,6 +63,10 @@ export default class HomeScreen extends Component{
         <TouchableOpacity onPress={this.getStockQuote}>
           <Text style={styles.btnText}>Get Quote</Text>
         </TouchableOpacity>
+
+        <Text>{this.state.name}</Text>
+        <Text>{this.state.todayPrice}</Text>
+        <Text>{this.state.change}</Text>
 
       </View>
 
