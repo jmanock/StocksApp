@@ -10,10 +10,10 @@ export default class HomeScreen extends Component{
     yesterdayPrice:'',
     todayPrice:'',
     timeRefreshed:'',
-    close:''
+    close:'',
+    data:[]
   }
   componentWillMount(){
-
     /*
       ~ Need todays date, yesterdays date √
       ~ Maybe get news?
@@ -54,20 +54,37 @@ export default class HomeScreen extends Component{
       });
     }.bind(this))
   }
-
+  // something = () =>{
+  //   StocksAPI.getCompanies(this.state.symbole).then(function(data){
+  //
+  //     // this.setState({
+  //     //   symbolLook:data.symbol,
+  //     //   nameLook:data.name,
+  //     //   symbole:''
+  //     // });
+  //   }.bind(this));
+  something = () =>{
+    StocksAPI.getCompanies(this.state.symbole).then(function(data){
+      this.setState({
+        data:data,
+        symbole:''
+      });
+    }.bind(this));
+  }
   render(){
     return(
       <View style={styles.container}>
-        <TextInput placeholder='Enter Symbole' value={this.state.symbole} onChangeText={(text) =>this.setState({symbole:text})} style={styles.txt} placeholderTextColor={'white'}/>
+        <TextInput placeholder='Enter Symbol' value={this.state.symbole} onChangeText={(text) =>this.setState({symbole:text})} style={styles.txt} placeholderTextColor={'white'}/>
 
-        <TouchableOpacity onPress={this.getStockQuote}>
+        <TouchableOpacity onPress={this.something}>
           <Text style={styles.btnText}>Get Quote</Text>
         </TouchableOpacity>
 
         <Text>{this.state.name}</Text>
         <Text>{this.state.todayPrice}</Text>
         <Text>{this.state.change}</Text>
-
+        <Text>{this.state.symbolLook}</Text>
+        <Text>{this.state.nameLook}</Text>
       </View>
 
     )
