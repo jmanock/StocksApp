@@ -6,11 +6,15 @@ export default class HomeScreen extends Component{
   state = {
     date:new Date(),
     symbole:'',
+    name:'',
+    yesterdayPrice:'',
+    todayPrice:'',
+    timeRefreshed:''
   }
   componentWillMount(){
-    this.getDate();
+
     /*
-      ~ Need todays date, yesterdays date
+      ~ Need todays date, yesterdays date √
       ~ Maybe get news?
       ~ Show stock
         - Name
@@ -34,13 +38,19 @@ export default class HomeScreen extends Component{
     if(day < 10){
       day = '0'+day;
     }
-    console.log(year, month, day, yesterday);
+    StocksAPI.getDate(year,month,day,yesterday);
   }
-  getStockQuote =()=>{
-    StocksAPI.getStocks(this.state.symbole);
-    this.setState({
-      symbole:''
-    });
+  
+  getStockQuote = () =>{
+    StocksAPI.getStocks(this.state.symbole).then(function(data){
+      this.setState({
+        time:data.time,
+        todayPrice:data.closePrice,
+        yesterdayPrice:data.yesterdayClose,
+        name:data.name,
+        symbole:''
+      });
+    }.bind(this))
   }
   render(){
     return(
