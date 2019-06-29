@@ -19,7 +19,8 @@ export default class HomeScreen extends Component{
     }.bind(this));
   }
   onListItemPress=(x)=>{
-    console.log(x);
+    // This could be where we get the stock price????
+    StocksAPI.getStocks(x);
   }
   renderListItem = ({item}) =>{
     return(
@@ -34,7 +35,7 @@ export default class HomeScreen extends Component{
   render(){
     return(
       <View style={styles.container}>
-        <TextInput placeholder='Enter Comapany Name or Symbol' value={this.state.symbol} onChangeText={(text) =>this.setState({symbol:text})} style={styles.txt} placeholderTextColor={'white'}/>
+        <TextInput placeholder='Enter Comapany Name or Symbol' value={this.state.symbol} onChangeText={(text) =>this.setState({symbol:text})} style={styles.txt} placeholderTextColor={'white'} autoCorrect={false}/>
 
         <TouchableOpacity onPress={this.search}>
           <Text style={styles.btnText}>Search</Text>
