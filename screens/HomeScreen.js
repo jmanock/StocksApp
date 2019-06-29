@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {TouchableOpacity,StyleSheet,TextInput,Text,View} from 'react-native';
+import {ListItem,FlatList,TouchableOpacity,StyleSheet,TextInput,Text,View} from 'react-native';
 import StocksAPI from '../api/StocksAPI';
 
 export default class HomeScreen extends Component{
@@ -13,9 +13,23 @@ export default class HomeScreen extends Component{
   search = () =>{
     StocksAPI.getAllCompanies(this.state.symbol).then(function(data){
       this.setState({
-        data:data
+        data:data,
+        symbol:''
       });
     }.bind(this));
+  }
+  onListItemPress=(x)=>{
+    console.log(x);
+  }
+  renderListItem = ({item}) =>{
+    return(
+      <TouchableOpacity onPress={()=>this.onListItemPress(item.symbol)}>
+        <Text>{item.name} | {item.symbol}</Text>
+      </TouchableOpacity>
+    );
+  }
+  returnKey(item){
+    return item.symbol.toString();
   }
   render(){
     return(
@@ -26,7 +40,9 @@ export default class HomeScreen extends Component{
           <Text style={styles.btnText}>Search</Text>
         </TouchableOpacity>
 
-        <Text>{this.state.data.name}</Text>
+        <FlatList data={this.state.data} renderItem={this.renderListItem} keyExtractor={this.returnKey} />
+
+
       </View>
     )
   }
