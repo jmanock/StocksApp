@@ -25,7 +25,7 @@ export default class HomeScreen extends Component{
   renderListItem = ({item}) =>{
     return(
       <TouchableOpacity onPress={()=>this.onListItemPress(item.symbol)}>
-        <Text>{item.name} | {item.symbol}</Text>
+        <Text style={{fontSize:20,color:'#fff',marginTop:20}}>{item.name} | {item.symbol}</Text>
       </TouchableOpacity>
     );
   }
