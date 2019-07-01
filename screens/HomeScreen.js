@@ -20,7 +20,7 @@ export default class HomeScreen extends Component{
   }
   onListItemPress=(x)=>{
     // This could be where we get the stock price????
-    StocksAPI.getStocks(x);
+    StocksAPI.getYesterDay(x);
   }
   renderListItem = ({item}) =>{
     return(
